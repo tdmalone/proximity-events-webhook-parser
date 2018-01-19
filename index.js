@@ -1,7 +1,8 @@
 /**
- * Handles custom geolocation events sent from devices such as iPhones.
+ * Queues custom geolocation events sent from devices such as iPhones.
  *
- * @author Tim Malone <tim.malone@chromatix.com.au>
+ * @author Tim Malone <tim@timmalone.id.au>
+ * @see ::runGeoEvent
  * @see http://proximityevents.com/faq/index.html
  */
 
@@ -22,13 +23,13 @@ exports.handler = ( event, context, callback ) => {
 
   const snsMessage = {
     Message:  JSON.stringify( geoEventData ),
-    TopicArn: 'arn:aws:sns:ap-southeast-2:873114526714:location-notifications'
+    TopicArn: process.env.SNS_QUEUE
   };
 
   sns.publish( snsMessage, ( error, data ) => {
     if ( error ) callback( error );
     console.log( data );
-    callback( null, 'Complete.' );
+    callback( null, 'Queued.' );
   });
 
 }; // Exports.handler.
