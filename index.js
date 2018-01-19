@@ -27,9 +27,24 @@ exports.handler = ( event, context, callback ) => {
   };
 
   sns.publish( snsMessage, ( error, data ) => {
-    if ( error ) callback( error );
-    console.log( data );
-    callback( null, 'Queued.' );
+    
+    const response = {
+      isBase64Encoded: false,
+      headers: {}
+    };
+    
+    if ( error ) {
+      console.log( error );
+      response.statusCode = 500;
+      response.body = JSON.stringify({ error: error });
+    } else {
+      console.log( data );
+      response.statusCode = 200;
+      response.body = JSON.stringify({ message: 'Queued.' });
+    }
+    
+    callback( null, response );
+    
   });
 
 }; // Exports.handler.
