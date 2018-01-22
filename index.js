@@ -17,12 +17,23 @@ exports.handler = ( event, context, callback ) => {
   };
 
   // Put together the event data we want.
-  const geoEventData = JSON.parse( event.body );
+  let geoEventData;
+  try {
+    geoEventData = JSON.parse( event.body );
+  } catch ( error ) {
+    console.error( 'Could not parse JSON: ' + event.body );
+    console.log( event );
+    response.statusCode = 500;
+    response.body = JSON.stringify({ error: 'Could not parse JSON: ' + event.body });
+    callback( null, response );
+    return;
+  }
   geoEventData.person = event.queryStringParameters.person;
 
   // Drop Visit:Exit events, as they'll often supply an old address way too late.
   if ( 'Visit:Exit' === geoEventData.event_type ) {
-    response.body = JSON.stringify({ message: 'Dropped.' });
+    console.log( 'Dropped unwanted Visit:Exit event.' );
+    response.body = JSON.stringify({ message: 'Dropped unwanted Visit:Exit event.' });
     callback( null, response );
     return;
   }
@@ -46,14 +57,18 @@ exports.handler = ( event, context, callback ) => {
   sns.publish( snsMessage, ( error, data ) => {
 
     if ( error ) {
-      console.log( error );
-      response.statusCode = 500;
+      console.error( error );
+      response.statusCode = error.statusCode || 500;
       response.body = JSON.stringify({ error: error });
     } else {
+      console.log( 'Queued.' );
+      console.log( event );
+      console.log( data );
       response.body = JSON.stringify({ message: 'Queued.' });
     }
 
     callback( null, response );
+    return;
 
   }); // Sns.publish.
 }; // Exports.handler.
