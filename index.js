@@ -24,7 +24,39 @@ exports.handler = ( event, context, callback ) => {
     exitWithError( 'Error: Could not parse input. ' + error + '. ' + event.body, callback );
     return;
   }
+
   geoEventData.person = event.queryStringParameters.person;
+
+  // Normalize the data that Proximity Events sends with its occasional form-data requests.
+  // We want to use the same fields that we have available for the usual JSON requests.
+  if ( 'application/x-www-form-urlencoded' === event.headers['content-type'] ) {
+
+    geoEventData.comments = 'Converted from form-data';
+
+    geoEventData.event_latitude = geoEventData.latitude;
+    geoEventData.event_longitude = geoEventData.longitude;
+    geoEventData.event_accuracy_m = '0.0'; // Unavailable.
+    geoEventData.event_address = 'Unknown location'; // Unavailable, although we could probably look it up (TODO).
+    geoEventData.trigger_name = geoEventData.id;
+    geoEventData.trigger_type = 'Geofence';
+
+    // Generate eg. 'Geofence:Exit' from 'exit'.
+    geoEventData.event_type = 'Geofence:' + geoEventData.trigger.replace( /^(\w)/, letter => letter.toUpperCase() );
+
+    // Convert eg. '1516705689.304757' to eg. '2018-01-09T21:38:30+11:00'.
+    geoEventData.event_date = new Date( parseInt( geoEventData.timestamp * 1000 ) );
+    geoEventData.event_date = geoEventData.event_date.toISOString();
+
+    delete geoEventData.device;
+    delete geoEventData.device_model;
+    delete geoEventData.device_type;
+    delete geoEventData.latitude;
+    delete geoEventData.longitude;
+    delete geoEventData.id;
+    delete geoEventData.trigger;
+    delete geoEventData.timestamp;
+
+  }
 
   // Drop Visit:Exit events, as they'll often supply an old address way too late.
   if ( 'Visit:Exit' === geoEventData.event_type ) {
