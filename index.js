@@ -19,13 +19,9 @@ exports.handler = ( event, context, callback ) => {
   // Put together the event data we want.
   let geoEventData;
   try {
-    geoEventData = JSON.parse( event.body );
+    geoEventData = parseInput( event.body, event.headers['content-type'] );
   } catch ( error ) {
-    console.error( 'Could not parse JSON: ' + event.body );
-    console.log( event );
-    response.statusCode = 500;
-    response.body = JSON.stringify({ error: 'Could not parse JSON: ' + event.body });
-    callback( null, response );
+    exitWithError( 'Error: Could not parse input. ' + error + '. ' + event.body, callback );
     return;
   }
   geoEventData.person = event.queryStringParameters.person;
@@ -57,18 +53,72 @@ exports.handler = ( event, context, callback ) => {
   sns.publish( snsMessage, ( error, data ) => {
 
     if ( error ) {
-      console.error( error );
-      response.statusCode = error.statusCode || 500;
-      response.body = JSON.stringify({ error: error });
-    } else {
-      console.log( 'Queued.' );
-      console.log( event );
-      console.log( data );
-      response.body = JSON.stringify({ message: 'Queued.' });
+      exitWithError( error, callback );
+      return;
     }
+
+    console.log( 'Queued.' );
+    console.log( data );
+    response.body = JSON.stringify({ message: 'Queued.' });
 
     callback( null, response );
     return;
 
   }); // Sns.publish.
 }; // Exports.handler.
+
+/**
+ * Parses input from the API caller, depending on the supplied content type. Throws an error if the
+ * content type is not understood.
+ *
+ * @param {string} input       The input.
+ * @param {string} contentType The content type of the input. Should be either JSON or form data.
+ *                             Defaults to JSON.
+ * @return {object} A collection of key and value pairs as supplied in the input.
+ */
+function parseInput( input, contentType ) {
+
+  // Default to JSON.
+  if ( 'undefined' === typeof contentType )
+    contentType = 'application/json';
+
+  // Split the content type down to just the MIME type, in case there's encoding included there too.
+  contentType = contentType.split( ';' )[0];
+
+  let data;
+
+  switch ( contentType ) {
+
+    case 'application/json':
+      data = JSON.parse( input );
+      break;
+
+    case 'application/x-www-form-urlencoded':
+      const querystring = require( 'querystring' );
+      data = querystring.parse( input );
+      break;
+
+    default:
+      throw new Error( 'Error: Invalid content-type. Please supply either JSON or form data.' );
+
+  } // Switch contentType.
+
+  return data;
+
+} // Function parseInput.
+
+function exitWithError( error, callback ) {
+
+  const response = {
+    isBase64Encoded: false,
+    statusCode:      error.statusCode || 500,
+    headers:         {},
+    body:            JSON.stringify({ error: error })
+  };
+
+  console.error( error );
+
+  callback( null, response );
+  return;
+
+} // Function exitWithError.
