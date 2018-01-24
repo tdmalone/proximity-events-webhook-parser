@@ -1,0 +1,58 @@
+{
+  "body": "device=12345678-1234-1234-1234-1234567890AB&device_model=iPhone8,1&device_type=iOS&id=Home&latitude=-12.3456789&longitude=123.4567890&timestamp=1516705699.304757&trigger=enter&person=tim",
+  "resource": "/{proxy+}",
+  "requestContext": {
+    "resourceId": "123456",
+    "apiId": "1234567890",
+    "resourcePath": "/{proxy+}",
+    "httpMethod": "POST",
+    "requestId": "12345678-1234-1234-1234-1234567890ab",
+    "accountId": "123456789012",
+    "identity": {
+      "apiKey": null,
+      "userArn": null,
+      "cognitoAuthenticationType": null,
+      "caller": null,
+      "userAgent": "Custom User Agent String",
+      "user": null,
+      "cognitoIdentityPoolId": null,
+      "cognitoIdentityId": null,
+      "cognitoAuthenticationProvider": null,
+      "sourceIp": "127.0.0.1",
+      "accountId": null
+    },
+    "stage": "prod"
+  },
+  "queryStringParameters": {
+    "person": "tim"
+  },
+  "headers": {
+    "Via": "1.1 1234567890abcdef1234567890abcdef.cloudfront.net (CloudFront)",
+    "Accept-Language": "en-US,en;q=0.8",
+    "CloudFront-Is-Desktop-Viewer": "true",
+    "CloudFront-Is-SmartTV-Viewer": "false",
+    "CloudFront-Is-Mobile-Viewer": "false",
+    "X-Forwarded-For": "127.0.0.1, 127.0.0.2",
+    "CloudFront-Viewer-Country": "US",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+    "Upgrade-Insecure-Requests": "1",
+    "X-Forwarded-Port": "443",
+    "Host": "1234567890.execute-api.us-east-1.amazonaws.com",
+    "X-Forwarded-Proto": "https",
+    "X-Amz-Cf-Id": "1234567890abcdefghi-jklm-nopqrstuvwxyzABCDEFHIJKLMNOPQ==",
+    "CloudFront-Is-Tablet-Viewer": "false",
+    "Cache-Control": "max-age=0",
+    "User-Agent": "Custom User Agent String",
+    "CloudFront-Forwarded-Proto": "https",
+    "Accept-Encoding": "gzip, deflate, sdch",
+    "content-type": "application/x-www-form-urlencoded"
+  },
+  "pathParameters": {
+    "proxy": "path/to/resource"
+  },
+  "httpMethod": "POST",
+  "stageVariables": {
+    "lambdaAlias": "dev"
+  },
+  "path": "/path/to/resource"
+}
