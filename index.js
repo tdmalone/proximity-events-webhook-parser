@@ -44,6 +44,7 @@ exports.handler = ( event, context, callback ) => {
     geoEventData.event_type = 'Geofence:' + geoEventData.trigger.replace( /^(\w)/, letter => letter.toUpperCase() );
 
     // Convert eg. '1516705689.304757' to eg. '2018-01-09T21:38:30+11:00'.
+    // TODO: Need to add timezone handling to this.
     geoEventData.event_date = new Date( parseInt( geoEventData.timestamp * 1000 ) );
     geoEventData.event_date = geoEventData.event_date.toISOString();
 
@@ -59,6 +60,7 @@ exports.handler = ( event, context, callback ) => {
   }
 
   // Drop Visit:Exit events, as they'll often supply an old address way too late.
+  // TODO: Make this configurable via an environment variable.
   if ( 'Visit:Exit' === geoEventData.event_type ) {
     console.log( 'Dropped unwanted Visit:Exit event.' );
     response.body = JSON.stringify({ message: 'Dropped unwanted Visit:Exit event.' });
