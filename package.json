@@ -1,7 +1,7 @@
 {
   "name": "proximity-events-webhook-parser",
   "version": "0.0.7",
-  "description": "Queues custom geolocation events sent from devices such as iPhones.",
+  "description": "An unofficial AWS Lambda/API Gateway function for parsing and queuing webhook events sent by the Proximity Events iPhone app.",
   "main": "index.js",
   "repository": "git+https://github.com/tdmalone/proximity-events-webhook-parser.git",
   "author": "Tim Malone <tdmalone@gmail.com>",
