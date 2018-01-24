@@ -1,9 +1,8 @@
 /**
- * Queues custom geolocation events sent from devices such as iPhones.
+ * Queues to an SNS topic geolocation events sent from the Proximity Events iPhone app.
  * Designed to be invoked by the AWS API Gateway as a Lambda Proxy function.
  *
- * @author Tim Malone <tim@timmalone.id.au>
- * @see ::runGeoEvent
+ * @author Tim Malone <tdmalone@gmail.com>
  * @see http://proximityevents.com/faq/index.html
  */
 

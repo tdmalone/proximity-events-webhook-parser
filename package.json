@@ -1,18 +1,16 @@
 {
-  "name": "handle-geo-event",
-  "version": "3.0.0",
+  "name": "proximity-events-webhook-parser",
+  "version": "0.0.7",
   "description": "Queues custom geolocation events sent from devices such as iPhones.",
   "main": "index.js",
-  "repository": "ssh://git.tm.id.au/v1/repos/handle-geo-event",
+  "repository": "git+https://github.com/tdmalone/proximity-events-webhook-parser.git",
   "author": "Tim Malone <tdmalone@gmail.com>",
   "license": "MIT",
-  "private": true,
   "scripts": {
     "test": "yarn test-visit-exit && yarn test-form-data && yarn test-location-update",
-    "test-form-data": "yarn _test \"$(cat tests/fixtures/form-data-api-gateway-proxy.json)\"",
-    "test-location-update": "yarn _test \"$(cat tests/fixtures/location-update-api-gateway-proxy.json)\"",
-    "test-visit-exit": "yarn _test \"$(cat tests/fixtures/visit-exit-api-gateway-proxy.json)\"",
-    "_test": "docker run --name lambda --rm -e SNS_QUEUE -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -v \"${PWD}\":/var/task lambci/lambda:nodejs6.10 index.handler",
-    "deploy": "echo Coming soon"
+    "test-form-data": "yarn _test \"$(cat tests/fixtures/form-data.json)\"",
+    "test-location-update": "yarn _test \"$(cat tests/fixtures/location-update.json)\"",
+    "test-visit-exit": "yarn _test \"$(cat tests/fixtures/visit-exit.json)\"",
+    "_test": "docker run --name lambda --rm -e SNS_QUEUE -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -v \"${PWD}\":/var/task lambci/lambda:nodejs6.10 index.handler"
   }
 }
