@@ -16,10 +16,10 @@ deploy:
   # @see https://docs.travis-ci.com/user/deployment/lambda/
   provider: lambda
   publish: true
-  function_name: "proximity-events-webhook-parser"
+  function_name: "proximityEventsWebhookParser"
   region: "ap-southeast-2"
   role: "arn:aws:iam::873114526714:role/genericLambdaRole"
-  description: "Parses and queus webhook events sent by the Proximity Events iPhone app."
+  description: "Parses and queues webhook events sent by the Proximity Events iPhone app."
   runtime: "nodejs6.10"
   handler_name: "handler"
   access_key_id: "AKIAJVWRHTUGC7RFRHXQ"
