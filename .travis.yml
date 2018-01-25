@@ -2,6 +2,15 @@ language: node_js
 services: docker
 node_js: 6.10
 
+env:
+  global:
+
+    - AWS_ACCESS_KEY_ID=AKIAISZAI76VEQ4XD6IQ
+    - SNS_QUEUE=arn:aws:sns:ap-southeast-2:873114526714:location-events-queue-dev
+
+    # AWS_SECRET_ACCESS_KEY
+    - secure: gyOScLiZiGGI9jaYbz6xNI006xEprIz5em7Qhc1KmolJiY9mFfcVR0L1u4qtKJ95ucLIIJYqyDWCx9WGQdQbnnVuK6dAv7chmRIBnqwvlGEGHa+s/AV12JLt9OvV9OqohXEp8GVL4kQ5g9cCLjdRLoHxCnO/DvaHBP4PgaFAj4GpicfLnVx+/sbilzzrs9oFNfPkffVHPMtDGJFnCy5K4nYicsefsdFUSJNj6Uz2NVsqtR5MFkixQ/Sopexs1C0z8wNunsh4ZyWRISdzbt0/WReYAWhchUZ/M0u8IyTK3M5GkCzypg3SEjmlBlNJfjRL6vw2k8Z8Pw5HntM4WuOrLIPjyPC5mt0MGZzHvANKhFNXBiU3dpx3zmsLj2oY/c8qWPnNyforV2AdcJeZD8rW5PNBoaDMhEX2YoSZuTQrQeCyY3W4s3xCTnxOdlDIAk+Zr2BdViBztOuupF48gqjWPb416etd28/0X/XWCHwjzXfCIsRrN4MWGo5ffpAhgcEq45ImQDJvcf0IX/raHKMXuqnx5wdwcN7GfxSKvxK0Lf6MuN2MNQqvV7qz2T32XRwzplAdLeKxJ/FhpD/WA4s9Zn6FtdjZbXQifhVfwGMHVa73SwiJoWmykcB1aUUoKcJ0HEUylpWmprDgvy4prm73JMOL+LvQ1iHnNR7CFC4S3LE=
+
 install: true
 script: yarn test
 before_deploy: rm -rf tests package.json *.md
@@ -16,9 +25,9 @@ deploy:
     description: Parses and queues webhook events sent by the Proximity Events iPhone app.
     runtime: nodejs6.10
     handler_name: handler
-    access_key_id: AKIAJVWRHTUGC7RFRHXQ
+    access_key_id: AKIAISZAI76VEQ4XD6IQ
     secret_access_key:
-      secure: hcmnv7X2MoLLiEvYBYFcZk6b3Km8d/IdrcyU4Q2N6ylKB81f3YVzU4xGdv+s2PBiZTtdSqjpO6uno7FBquBJ5k4TVglyba6reOWDCUkCxmv6oh+G7yGJ5p0md4h7lkCT3BuJJ5M936spHQzQMmCWhk27bjXYBMGgTsaiW+JrpIS2Aw2YEjpFcxkcbaVoFEJoY4KCKyWp0PQ8qyoBTR+K63ArO6ZpvJs6cUWuAjpWa2321WrpcetHD9c4Unr7r1oHpq6M7a7VYPirJbKVkj6dqObiWSevxZ1nMNDiqM0vb/nXC8lCQxGtIt7fteyTpV3PxPno8AFUtiM955WiwelSFL/vYVrpr9V+Bitrp2be6Z7OknHjzH7AP7Ej/5k16kTHr9fKdeO1MU4k837tCFlzFwda3biUYupWxmQOhhLGP/zWrdfIe4q6UzQjyOEBhzoFVnh0NMI7AC0h7a0k/AsqobhwK4FuJJCE+8wvzrKFB0Bub7SIspD7NhPx2Wn0oU/kPEIyDTpeY4TllvzM9SDXutYIq/xZjt8+1BsUft8OKm/XzGvdbgK3292OmTDTlDMk0VHxAhkO+HrYEliE03E1WemBmBQyUhd+xoU1bAhAXPHoqBoa8tA3p1BKNvdz+Ww1tAckjunO6g4UnhRj4IV2kNu0I1w8wLnXZ3Frdd8o5fw=
+      secure: MCV4yKe+HQ2F3J53JLSbcL2nI04NUmlDAa5Yc0/ERAmJGMGBGo85hBw7TelKVvsxM8vP3B0vExZTQ+Awlg7kep07hryaTLgKY6kJd01sgndmOczjNksxxqEoqVjR6xFD+Pll5k0HleZPmuzh3rr/FI6tG26i2UlvI+lhhvO3XQWTp1xX47bi4jhgnbK3AT+Q8UgzPUu3RD1mS87t/tFJ2dlzSFuS2SB5b1v4i6KJne9qXhf75lRe8AeMq/qkAxTWBgBqUPz2me9o+Auub2WHrQh9Hb38rNyucty5IltK+erwxnge9WEEDBXurwv3Is6CawL5QMgyic/4QfJ1iMrRgpL+o7RkR+RLWmgo+Rq/3ym9HYYMP1EEcuRUEzHQIu33ZFTaSWct5dDmR3MHLT3NVFT09YmfggoNkp/Fk0bEBKnH7mvEy8zWsTZLTz+Hahiq8J577DDSTu/9bqk45WVq/JwjKZen6egnw4h87WI4QAgee6lXEqArcP5a0to254+Yibwbq663hj6gD00GcBm/2Rlh14wHMxUEgj2eONpDdEjRGMN3T+VlbKvRKM7eggD6dSsA7WQBAfbrYEoEgCEE8zTT7xeiyLkMTzxeGJWPtbfMs43v5sdpkcD/SmZ+932B18HHojmvo98ykWozbI+YyaoYj0WjQWwrXj6Qh/d/yYU=
     skip_cleanup: true
     on:
       branch: master
