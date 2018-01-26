@@ -151,7 +151,7 @@ function exitWithError( error, callback ) {
 
   console.error( error );
 
-  callback( null, response );
+  callback( 'true' === process.env.CI ? error : null, response );
   return;
 
 } // Function exitWithError.

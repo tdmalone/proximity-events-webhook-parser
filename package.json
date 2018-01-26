@@ -11,6 +11,6 @@
     "test-form-data": "yarn _test \"$(cat tests/fixtures/form-data.json)\"",
     "test-location-update": "yarn _test \"$(cat tests/fixtures/location-update.json)\"",
     "test-visit-exit": "yarn _test \"$(cat tests/fixtures/visit-exit.json)\"",
-    "_test": "docker run --name lambda --rm -e SNS_QUEUE -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -v \"${PWD}\":/var/task lambci/lambda:nodejs6.10 index.handler"
+    "_test": "docker run --name lambda --rm -e CI -e SNS_QUEUE -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -v \"${PWD}\":/var/task lambci/lambda:nodejs6.10 index.handler"
   }
 }
