@@ -6,6 +6,7 @@ env:
   global:
 
     - AWS_ACCESS_KEY_ID=AKIAJEF3SOFO6AFQZBTA
+    - AWS_DEFAULT_REGION=ap-southeast-2
     - SNS_QUEUE=arn:aws:sns:ap-southeast-2:873114526714:location-events-queue-dev
     - LAMBDA_NAME=proximityEventsWebhookParser
     - LAMBDA_ALIAS=prod
@@ -22,7 +23,7 @@ deploy:
   - provider: lambda
     publish: true
     function_name: $LAMBDA_NAME
-    region: ap-southeast-2
+    region: $AWS_DEFAULT_REGION
     role: arn:aws:iam::873114526714:role/genericLambdaRole
     description: Parses and queues webhook events sent by the Proximity Events iPhone app.
     runtime: nodejs6.10
@@ -38,6 +39,7 @@ deploy:
     email: tdmalone@gmail.com
     api_key:
       secure: eZDnL1SGpt0dbOCERxIdHu4Aamyf+kslz4LdZup6bzUg6ehUrrl989z0EZWJka/tU/IXVU00lopTplk0nxgCpuwTHhaCprXRcVnXglgyPyzvSZANHc0YQrgTtEWhLWurK70gj9zzyB7K7s+sLTUrXaMfQW8js4HdhbgFLeWEPXv6M7TWarZwsI5ftYB993TiaaWnhU33Jdn++KuUwuT2FYjRexCiAs5qBwwOuuN5NOEKDt6eyCf97OItUAgEsphJYjCpKesFOZNTARWhSBrkBMZHcqvE7vE2SwJ+LI8Krfe3IbY1FpVHmy62ytbofwYXMvKca0BRx7DovK6F1uunjOxbOD1G/qqbzXU+M5FwrKipgjOMHZUgO4sOCtQBBW7IG2hlMVpuCEqtnCcmlmRQEt8oqqoeQWzld9orKIrx2hPacYRYtYhpu8id2D1OT+IVY5AIT8mmvF2VJlVxX1TFJhKZq/2rd1EbAyAC0ZmSzegwBGArYoFgP7/gN93zHHep5ijBpSEc/DqpJ+FHCW2lhrgL8ag76dHGi5170cCerzhEJKlhpJuOg3naoTHO0SUnahKInJrd/HcN/lg1DRNYZV3W4Y1leo65MtDhM/CxPf9zTWfFkOyFSEMzKbX83CkD3V9w1HVur5GO6SBXoHWkZh99aj6jYnrxJQ+bhL6+npE=
+    skip_cleanup: true
     on:
       branch: master
       tags: true
