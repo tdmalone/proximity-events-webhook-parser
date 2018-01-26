@@ -14,9 +14,14 @@ env:
     # AWS_SECRET_ACCESS_KEY
     - secure: bKgft7+sCmss0eH93BBhYtLz15MI0kdhLzU1aEbPztQNfWdmv59hduFdB8wa+uBqLMZoZItIq0C17qcQRlVjtsS8m8ekg4tK0OOHkAVuqBnuEKzDL3qmUAQmg5v+8x5FYVKldhixfc29mjA2k1GakG+rbd0qk1YtXj7UJyM2dyVNi6xyVWmDfndWerVTrkwn1j6eBnPmTspChLziLpD1rBJc2kEdIeXlUkDycm9enicVULqn1nwQTU+TwVtgMLTH99p8JX2+fSF/NoUuW+dULYacfurKUUVWSZLWEd7BP3Njm8kyN4LGwMNAn6AjYLUz2HaxJXSPRcSd0OAJ9c/iyRYVUxAlciNwonkuvjem+7qUhjD7RY+dVnTcGRgIv/DlToK4UUY95pMBTlDx8IL3beO3PGqorNZAq7xN85hpwUWmlK3LVZ0hqZh4nvv3sOXi8rU5EBaIocgZyPBPvx8PxfzZ8odFDv8wlre3leSaqofLL+P3eJapKtJ7L50WVQ9Tgp2uWloD8xuGnF+WFZfZBEnjt5gAdKbs9i6BfzpjF0W2Vz5Gj/QT2EMTLoO5PHlq29FOUqCu6RZZqwY+YcWxabcFh4dz6otq9Lra+LgOtQdjoavEeK5nCNd3bVw9JshCMpu7LrEe/Kwz7ZiuNld3seGNQAe+OIHJUxmmZwNNsFw=
 
-install: true
-script: yarn test
-before_deploy: rm -rf tests .*rc.js
+cache:
+  yarn: true
+  directories:
+    - node_modules
+
+install: yarn
+script: yarn lint && yarn test
+before_deploy: rm -rf node_modules && yarn --prod && rm -rf tests .*rc.js
 
 deploy:
 
