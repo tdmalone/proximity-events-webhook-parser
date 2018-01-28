@@ -1,5 +1,5 @@
 {
-  "body": "{\"event_longitude\": \"123.456789\",\"event_type\": \"Location:Update\",\"event_accuracy_m\": \"65.000000\",\"event_address\": \"123 Whatever Street, Canada City, Canada\",\"event_latitude\": \"-12.345678\",\"event_id\": \"38DDCDE7-5B43-4765-B7CE-4C3CF986F693\",\"trigger_type\": \"Location\",\"trigger_name\": \"New Location Updates\",\"trigger_id\": \"22BED6C0-B171-4EB1-807E-A169EB34ABF1\",\"event_date\": \"2018-01-09T21:38:29+11:00\"}",
+  "body": "{\"event_longitude\": \"123.456789\",\"event_type\": \"Location:Update\",\"event_accuracy_m\": \"65.000000\",\"event_address\": \"123 Whatever Street, Canada City, Canada\",\"event_latitude\": \"-12.345678\",\"event_id\": \"38DDCDE7-5B43-4765-B7CE-4C3CF986F693\",\"trigger_type\": \"Location\",\"trigger_name\": \"New Location Updates\",\"trigger_id\": \"22BED6C0-B171-4EB1-807E-A169EB34ABF1\",\"event_date\": \"2018-01-09T21:38:29+11:00\",\"event_exit_date\":\"\"}",
   "resource": "/{proxy+}",
   "requestContext": {
     "resourceId": "123456",
