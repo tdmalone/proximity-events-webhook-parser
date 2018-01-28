@@ -2,15 +2,42 @@
   "name": "proximity-events-webhook-parser",
   "version": "0.0.10",
   "description": "An unofficial AWS Lambda/API Gateway function for parsing and queuing webhook events sent by the Proximity Events iPhone app.",
-  "main": "index.js",
+  "homepage": "https://github.com/tdmalone/proximity-events-webhook-parser#readme",
   "repository": "git+https://github.com/tdmalone/proximity-events-webhook-parser.git",
+  "main": "index.js",
   "author": "Tim Malone <tdmalone@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "yarn test-visit-exit && yarn test-form-data && yarn test-location-update",
+    "lint": "cross-env DEBUG=eslint:cli-engine eslint --color --ignore-pattern '/coverage/' --ignore-pattern '/docs/' --ignore-pattern '!.eslintrc.js' \"**/*.js\"",
+    "fix": "yarn lint --fix",
+    "test": "yarn test-visit-exit && yarn test-form-data && yarn test-location-update && yarn unit-tests",
     "test-form-data": "yarn _test \"$(cat tests/fixtures/form-data.json)\"",
     "test-location-update": "yarn _test \"$(cat tests/fixtures/location-update.json)\"",
     "test-visit-exit": "yarn _test \"$(cat tests/fixtures/visit-exit.json)\"",
-    "_test": "docker run --name lambda --rm -e CI -e SNS_QUEUE -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -v \"${PWD}\":/var/task lambci/lambda:nodejs6.10 index.handler"
+    "_test": "docker run --rm -e CI -e SNS_QUEUE -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -e AWS_DEFAULT_REGION -v \"${PWD}\":/var/task lambci/lambda:nodejs6.10 index.handler",
+    "unit-tests": "jest --verbose --coverage"
+  },
+  "keywords": [
+    "api-gateway",
+    "aws",
+    "geolocation",
+    "lambda",
+    "proximity-events",
+    "sns"
+  ],
+  "jest": {
+    "testMatch": [
+      "**/tests/**/*.js"
+    ]
+  },
+  "dependencies": {
+    "aws-sdk": "^2.170.0"
+  },
+  "devDependencies": {
+    "cross-env": "^5.1.0",
+    "eslint": "^4.8.0",
+    "eslint-config-tdmalone": "^0.0.1",
+    "jest": "^21.2.1",
+    "jest-tobetype": "^1.1.0"
   }
 }
