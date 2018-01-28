@@ -54,9 +54,9 @@ exports.handler = ( event, context, callback ) => {
     geoEventData = normalizeFormData( geoEventData );
   }
 
-  // Ensure no data is going through as a blank string, but rather than it's set to null.
+  // Ensure no data is going through as a blank string.
   Object.keys( geoEventData ).forEach( ( key ) => {
-    if ( '' === geoEventData[ key ]) geoEventData[ key ] = null;
+    if ( '' === geoEventData[ key ]) delete geoEventData[ key ];
   });
 
   // Store an SNS message to process everything else we need, so we can return quickly.
