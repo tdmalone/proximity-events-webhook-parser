@@ -161,7 +161,6 @@ function sendSnsMessage( message, callback ) {
     TopicArn: SNS_QUEUE
   };
 
-  aws.config.region = 'ap-southeast-2';
   const sns = new aws.SNS();
 
   sns.publish( snsMessage, ( error ) => {
