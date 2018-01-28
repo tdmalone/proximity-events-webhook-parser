@@ -126,14 +126,20 @@ function normalizeFormData( data ) {
   data.event_date = new Date( parseInt( data.timestamp * TO_MILLISECONDS ) );
   data.event_date = data.event_date.toISOString();
 
-  delete data.device;
-  delete data.device_model;
-  delete data.device_type;
-  delete data.latitude;
-  delete data.longitude;
-  delete data.id;
-  delete data.trigger;
-  delete data.timestamp;
+  // Delete superfluous data.
+  const deletableProps = [
+    'device',
+    'device_model',
+    'device_type',
+    'latitude',
+    'longitude',
+    'id',
+    'trigger',
+    'timestamp'
+  ];
+  deletableProps.forEach( ( key ) => {
+    delete data[ key ];
+  });
 
   return data;
 
